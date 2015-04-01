@@ -10,16 +10,17 @@
 <style>
   .lightBorder { border:1px solid #dddddd; }
   .lightBorder div.row { border-bottom:1px solid #eeeeee; }
-  div.rowHighlight .row:hover, div.rowHighlight .row:hover { background-color:#DFFFDF; }
+  div.rowHighlight .row:hover, div.rowHighlight .row:hover { background-color:#FFFFDF; }
   div.row.relatedListStart { background-color: #ddeffe; margin:0px; padding:2px 0px 0px 10px; vertical-align:middle; border:1px solid #dddddd; border-top-left-radius: 8px; border-top-right-radius: 8px;}
   div.row.relatedListStart a { margin-top:0px; padding-top:0px; margin-bottom:3px }
   div.row.relatedListStart div { float:left; min-width:100px; font-weight:bold; margin-top:4px; }
 
-  div.relatedListLinks { padding:0px 0px 6px 0px; text-align:center}
+  div.relatedListLinks { padding:0px 0px 10px 0px; text-align:center}
   div.relatedListLinks a { padding:0px 10px 0px 10px;}
 
   .pageTitle { text-indent:20px; }
 
+  a { font-weight: bold; }
   body, td, p, span, div, input, select, textarea, .form-control { font-size:12px }
   .form-control { height:22px; padding: 2px 6px; margin-bottom:6px;}
   label.control-label { padding-top:1px; padding-bottom:1px; }

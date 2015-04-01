@@ -23,7 +23,7 @@
       </tr>
       @if (count($activityList))
         @foreach ($activityList as $record)
-          <tr class="@if ($record->status_id!=4) text-primary @if ($record->priority_id==1) danger text-info @elseif ($record->priority_id==2) warning @else success @endif @endif">
+          <tr class="@if ($record->status_id!=4) text-primary @if ($record->priority_id==1) text-danger @elseif ($record->priority_id==2) text-warning @endif @endif">
             <td>{{ $record->subject }}</td>
             <td>{{ \App\AppHelper::optionValueFromDB('lkp_activity_type', $record->type_id) }}</td>
             <td>{{ str_replace('App\\', '', $record->related_type) }}</td>
@@ -37,7 +37,7 @@
           </tr>
         @endforeach
       @else
-        <tr><td colspan="11">No records were found!</td>
+        <tr><td colspan="11"><strong>No records were found!</strong></td>
       @endif
     </table>
   </div>

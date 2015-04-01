@@ -45,4 +45,9 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	{
 	  return $this->hasMany('App\Contact');
 	}
+
+	public function activities()
+	{
+	  return $this->hasMany('App\Activity', 'owner_id');
+	}
 }

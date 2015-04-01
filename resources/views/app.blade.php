@@ -66,9 +66,9 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->name }}<span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
               @if (Auth::user()->userGroup->id==\App\UserGroup::SUPER_USER)
-               <li><a href="/setting">Settings</a></li>
+               <!-- >li><a href="/setting">Settings</a></li -->
               @endif
-              <li><a href="/user/profile">Profile</a></li>
+              <!-- >li><a href="/user/profile">Profile</a></li -->
               <li><a href="/auth/logout">Logout</a></li>
             </ul>
           </li>

@@ -24,7 +24,7 @@ class CreateLeadsTable extends Migration {
       $table->string('company')->nullable();
       $table->integer('num_of_employees')->unsigned()->nullable();
       $table->string('website')->nullable();
-      $table->decimal('annual_revenue', 12, 2)->nullable();
+      $table->decimal('annual_revenue', 14, 0)->nullable();
 
       $table->string('phone')->nullable();
       $table->string('mobile_phone')->nullable();
@@ -51,6 +51,8 @@ class CreateLeadsTable extends Migration {
       $table->integer('industry_id')->unsigned()->nullable();
 //      $table->integer('campaign_id')->unsigned()->nullable();
       $table->integer('rating_id')->unsigned()->nullable();
+
+      $table->date('converted_at')->nullable();
 
       $table->boolean('read_by_owner')->nullable();
 

@@ -19,7 +19,7 @@ class CreateAccountsTable extends Migration
       $table->string('number');
       $table->string('phone')->nullable();
       $table->string('fax')->nullable();
-      $table->decimal('annual_revenue', 12, 2)->nullable();
+      $table->decimal('annual_revenue', 14, 0)->nullable();
       $table->integer('num_of_employees')->unsigned()->nullable();
       $table->string('website')->nullable();
       $table->text('description')->nullable();

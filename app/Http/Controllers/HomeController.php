@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 
 
 class HomeController extends Controller
@@ -37,6 +38,8 @@ class HomeController extends Controller
   {
     $recentViews=$this->recentViews();
 
-    return view('home', ['recentViews'=>$recentViews]);
+    $activityList=Auth::User()->activities()->where('status_id', '!=', 4)->get();
+
+    return view('home', ['recentViews'=>$recentViews, 'activityList'=>$activityList]);
   }
 }

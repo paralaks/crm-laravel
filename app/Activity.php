@@ -17,5 +17,10 @@ class Activity extends Model
   {
     return $this->morphTo();
   }
+
+  public function owner()
+  {
+    return $this->belongsTo('App\User');
+  }
 }
 
