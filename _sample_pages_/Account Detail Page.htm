@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lite CRM</title>
+
+	<!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/cupertino/jquery-ui.css" -->
+
+  <link rel="stylesheet" href="Account%20Detail%20Page_files/bootstrap.css">
+  <link rel="stylesheet" href="Account%20Detail%20Page_files/jquery-ui.css">
+  <link rel="stylesheet" href="Account%20Detail%20Page_files/jquery.css">
+
+
+
+<style>
+  .lightBorder { border:1px solid #dddddd; }
+  .lightBorder div.row { border-bottom:1px solid #eeeeee; }
+  div.rowHighlight .row:hover, div.rowHighlight .row:hover { background-color:#FFFFDF; }
+  div.row.relatedListStart { background-color: #ddeffe; margin:0px; padding:2px 0px 0px 10px; vertical-align:middle; border:1px solid #dddddd; border-top-left-radius: 8px; border-top-right-radius: 8px;}
+  div.row.relatedListStart a { margin-top:0px; padding-top:0px; margin-bottom:3px }
+  div.row.relatedListStart div { float:left; min-width:100px; font-weight:bold; margin-top:4px; }
+
+  div.relatedListLinks { padding:0px 0px 10px 0px; text-align:center}
+  div.relatedListLinks a { padding:0px 10px 0px 10px;}
+
+  .pageTitle { text-indent:20px; }
+
+  a { font-weight: bold; }
+  body, td, p, span, div, input, select, textarea, .form-control { font-size:12px }
+  .form-control { height:22px; padding: 2px 6px; margin-bottom:6px;}
+  label.control-label { padding-top:1px; padding-bottom:1px; }
+  label.control-label.ui-state-default { margin-bottom:5px; height:22px; padding-top:2px }
+  div.lightBorder label { margin-bottom:1px }
+  .btn { font-size:12px }
+  .row { padding-top:2px }
+
+  .form-horizontal .form-group
+  {
+    margin-right: -5px;
+    margin-left: -5px;
+  }
+  .form-group { margin-bottom: 5px; }
+
+
+  nav.navbar a { padding:14px 18px }
+  div.navbar-header button.navbar-toggle.collapsed { margin-top:7px; border:1px solid #0077AA; }
+  nav.ui-state-default ul.nav.navbar-nav li.ui-state-default a {  color: #0044AA; }
+
+  table.searchResults td, table.searchResults th { font-size:98% }
+  div.input-group span.input-group-addon { min-width:64px; }
+
+  #allday { margin-bottom:10px; padding-bottom:1px }
+  #dateFrom, #dateTo { width:90px }
+  </style>
+  <!-- >script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script -->
+
+  <script src="Account%20Detail%20Page_files/jquery-2.js"></script>
+  <script src="Account%20Detail%20Page_files/bootstrap.js"></script>
+  <script src="Account%20Detail%20Page_files/jquery-ui.js"></script>
+  <script src="Account%20Detail%20Page_files/jquery.js"></script>
+
+<script>
+function submitFormAction(form, action)
+{
+  var form=document.getElementById(form);
+
+  form.action.value=action;
+  form.submit();
+}
+
+function expandTextarea(el)
+{
+  while($(el).outerHeight() < el.scrollHeight + parseFloat($(el).css("borderTopWidth")) + parseFloat($(el).css("borderBottomWidth")))
+  {
+    $(el).height($(el).height()+1);
+  };
+}
+
+function updateAccountParentWindow(pId, pName)
+{
+  $('#account_id', window.opener.document).val(pId);
+  $('#account_name', window.opener.document).text(pName);
+  window.close();
+}
+
+$(function()
+    {
+      $("#dateFrom").datepicker({ dateFormat: "yy-mm-dd", changeMonth: true, changeYear: true});
+      $("#dateTo").datepicker({ dateFormat: "yy-mm-dd", changeMonth: true, changeYear: true});
+      $("#start_date").datepicker({ dateFormat: "yy-mm-dd", changeMonth: true, changeYear: true});
+      $("#end_date").datepicker({ dateFormat: "yy-mm-dd", changeMonth: true, changeYear: true});
+      $("#birthdate").datepicker({ dateFormat: "yy-mm-dd", changeMonth: true, changeYear: true});
+      $("#close_date").datepicker({ dateFormat: "yy-mm-dd", changeMonth: true, changeYear: true});
+
+      $("#remind_at").datetimepicker({ 	formatTime:"H:i", formatDate:"y-m-d", defaultDate:"2015-04-01", defaultTime:"10:00", timepickerScrollbar:false});
+
+      $("#intervalDate").change(function()
+        {
+          //var tdy=new Date();
+          //var tom=new Date(tdy.getFullYear(), tdy.getMonth(), tdy.getDate()+1, 0, 0, 0);
+          //$("#dateFrom").val(tdy.toLocaleDateString());
+          $("#dateFrom").val("");
+          $("#dateTo").val("");
+        });
+
+      $("#description").keyup(function(e)
+        {
+          if (e.which==8 || e.which==46 )
+          {
+            lineCount = $(this).val().split("\n").length;
+            $(this).height(lineCount-1 * parseInt(window.getComputedStyle(document.getElementById("description")).fontSize) );
+          }
+          expandTextarea(this);
+        });
+
+      if (document.getElementById("description"))
+        expandTextarea(document.getElementById("description"));
+    });
+
+</script>
+<script>
+  function windowOpen(pUrl, pName, pWidth, pHeight)
+  {
+    left=(screen.width-pWidth)/2;
+    top=(screen.height-pHeight)/2;
+
+    newWindow=window.open(pUrl, pName, "toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,resizable=0,width="+pWidth+", height="+pHeight+",screenX=0,screenY=0,top="+top+",left="+left);
+    newWindow.focus();
+
+    return newWindow;
+  }
+
+  function showChangeAccountWindow()
+  {
+    var changeAccountWindow;
+
+    if (changeAccountWindow && !changeAccountWindow.closed)
+      changeAccountWindow.focus();
+
+    changeAccountWindow=windowOpen("http://local.litecrm.com/account/showChangeAccount", "changeAccountWindow", 450, 400);
+  }
+</script>
+</head>
+
+<body>
+  <nav class="navbar navbar-default ui-state-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-top-menu">
+          <span class="sr-only">Toggle Navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="http://local.litecrm.com/">Lite CRM</a>
+      </div>
+
+      <div class="collapse navbar-collapse" id="navbar-collapse-top-menu">
+
+      <ul class="nav navbar-nav">
+                            <li><a href="http://local.litecrm.com/lead">Leads</a></li>
+                    <li><a href="http://local.litecrm.com/contact">Contacts</a></li>
+          <li class="ui-state-default"><a href="http://local.litecrm.com/account">Accounts</a></li>
+          <li><a href="http://local.litecrm.com/opportunity">Opportunities</a></li>
+          <li><a href="http://local.litecrm.com/report">Reports</a></li>
+                </ul>
+
+        <ul class="nav navbar-nav navbar-right">
+                  <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Super User<span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+                             <!-- >li><a href="/setting">Settings</a></li -->
+                            <!-- >li><a href="/user/profile">Profile</a></li -->
+              <li><a href="http://local.litecrm.com/auth/logout">Logout</a></li>
+            </ul>
+          </li>
+                </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+
+
+  
+  
+    <div class="alert alert-success alert-dismissable">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+    <span class="glyphicon glyphicon-ok-sign"></span>&nbsp;&nbsp; Activity saved successfully.
+  </div>
+  
+</div>
+
+
+  
+<h3 class="pageTitle">Account Details</h3>
+
+<div class="container relatedListLinks">
+  <a href="#accountContactRelatedList">Contacts</a>
+  <a href="#accountOpportunityRelatedList">Opportunities</a>
+  <a href="#accountActivityRelatedList">Activities</a>
+</div>
+
+<div class="container lightBorder rowHighlight">
+
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="row">
+        <label for="name" class="text-right col-xs-4">&nbsp;Name:</label>
+        <div class="col-xs-8">Samsung Electronics Co., Ltd.</div>
+      </div>
+    </div>
+
+    <div class="col-sm-6">
+      <div class="row">
+        <label for="number" class="text-right col-xs-4">&nbsp;Account Number:</label>
+        <div class="col-xs-8">EL-SMSG</div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="row">
+        <label for="type_id" class="text-right col-xs-4">&nbsp;Account Type:</label>
+        <div class="col-xs-8">Active</div>
+      </div>
+    </div>
+
+    <div class="col-sm-6">
+      <div class="row">
+        <label for="rating_id" class="text-right col-xs-4">&nbsp;Rating:</label>
+        <div class="col-xs-8">Hot</div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="row">
+        <label for="industry_id" class="text-right col-xs-4">&nbsp;Phone:</label>
+        <div class="col-xs-8">+1 425-614-1047</div>
+      </div>
+    </div>
+
+    <div class="col-sm-6">
+      <div class="row">
+        <label for="industry_id" class="text-right col-xs-4">&nbsp;Fax:</label>
+        <div class="col-xs-8"></div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="row">
+        <label for="industry_id" class="text-right col-xs-4">&nbsp;Annual Rev.:</label>
+        <div class="col-xs-8">20000000000</div>
+      </div>
+    </div>
+
+    <div class="col-sm-6">
+      <div class="row">
+        <label for="industry_id" class="text-right col-xs-4">&nbsp;Num. of Employees:</label>
+        <div class="col-xs-8">12000</div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="row">
+        <label for="industry" class="text-right col-xs-4">&nbsp;Industry:</label>
+        <div class="col-xs-8">Agriculture</div>
+      </div>
+    </div>
+
+    <div class="col-sm-6">
+      <div class="row">
+        <label for="ownership" class="text-right col-xs-4">&nbsp;Ownership:</label>
+        <div class="col-xs-8">Public</div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="row">
+        <label for="industry_id" class="text-right col-xs-4">&nbsp;Website:</label>
+        <div class="col-xs-8">www.samsung.com</div>
+      </div>
+    </div>
+
+    <div class="col-sm-6">
+      <div class="row">
+        <label for="lead_source_id" class="text-right col-xs-4">&nbsp;Lead Source:</label>
+        <div class="col-xs-8">Phone Inquiry</div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="row">
+        <label for="address" class="text-right col-xs-4">&nbsp;Billing Address:</label>
+        <div class="col-xs-8">146th Place Southeast <br> Bellevue, WA, 98007 <br> USA</div>
+      </div>
+    </div>
+
+    <div class="col-sm-6">
+      <div class="row">
+        <label for="address_other" class="text-right col-xs-4">&nbsp;Shipping Address:</label>
+        <div class="col-xs-8"> <br> , ,  <br> </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="row">
+        <label for="description" class="text-right col-xs-4">&nbsp;Description:</label>
+        <div class="col-xs-8"> South Korean multinational electronics company headquartered in Suwon, South Korea</div>
+      </div>
+    </div>
+
+    <div class="col-sm-6">
+      <div class="row">
+        <label for="owner" class="text-right col-xs-4">&nbsp;Owner:</label>
+        <div class="col-xs-4">Super User </div>
+        <div class="col-xs-4">[<a href="http://local.litecrm.com/account/1/editOwner">Change</a>]</div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="row">
+        <label for="adder" class="text-right col-xs-4">&nbsp;Created by:</label>
+        <div class="col-xs-4">Super User </div>
+        <div class="col-xs-4">2015-04-01 00:04:42 </div>
+      </div>
+    </div>
+
+    <div class="col-sm-6">
+      <div class="row">
+        <label for="modifier" class="text-right col-xs-4">&nbsp;Modified by:</label>
+        <div class="col-xs-4">Super User </div>
+        <div class="col-xs-4">2015-04-01 00:04:42 </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <form id="deleteAccountForm" method="post" action="/account/1" accept-charset="UTF-8" role="form" class="form-horizontal">
+      <input name="_token" value="6M0glZc4mg3CkK9KGD3XiFxmcrVgCIDVz0U4IT66" type="hidden">
+      <input name="_method" value="DELETE" type="hidden">
+      <div class="form-group form-group-sm">
+        <div class="col-xs-12 text-center">
+          <a href="http://local.litecrm.com/account/1/edit" class="btn btn-primary">Edit</a>
+          <input value="Delete" class="btn btn-primary" onclick="if (confirm('Are you sure you want to delete this record?')) document.getElementById('deleteAccountForm').submit()" type="button">
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<br>
+<br>
+<a name="accountContactRelatedList"></a>
+<div class="container">
+  <div class="row relatedListStart">
+    <div>Contacts</div><a href="http://local.litecrm.com/contact/create?account_id=1" class="btn btn-primary btn-xs">Add New Contact</a>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover table-condensed searchResults">
+      <tbody><tr class="ui-state-default">
+        <th>Name</th>
+        <th>Email</th>
+        <th>Title</th>
+        <th>State</th>
+        <th>Country</th>
+        <th>Contact Type</th>
+        <th>Lead Source</th>
+        <th>Owner</th>
+        <th>Created Date/Time</th>
+        <th>&nbsp;</th>
+      </tr>
+                      <tr>
+          <td>Mr. Lee Kun-hee</td>
+          <td>lkh@samsung.com</td>
+          <td>President &amp; CEO</td>
+          <td>WA</td>
+          <td>USA</td>
+          <td>Prospect</td>
+          <td>Web</td>
+          <td>Community User</td>
+          <td>2015-04-01 00:04:42</td>
+          <td class="text-small"><a href="http://local.litecrm.com/contact/3">View</a>&nbsp;&nbsp;&nbsp;<a href="http://local.litecrm.com/contact/3/edit">Edit</a></td>
+        </tr>
+                  </tbody></table>
+  </div>
+</div>
+<br>
+<br>
+<a name="accountOpportunityRelatedList"></a>
+<div class="container">
+  <div class="row relatedListStart">
+    <div>Opportunities</div><a href="http://local.litecrm.com/opportunity/create?account_id=1" class="btn btn-primary btn-xs">Add New Opportunity</a>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover table-condensed searchResults">
+      <tbody><tr class="ui-state-default">
+        <th>Name</th>
+        <th>Probability</th>
+        <th>Stage</th>
+        <th>Next Stage</th>
+        <th>Close Date</th>
+        <th>Lead Source</th>
+        <th>Owner</th>
+        <th>Created Date/Time</th>
+        <th>&nbsp;</th>
+      </tr>
+                      <tr>
+          <td>7" Amoled Screen</td>
+          <td>75</td>
+          <td>New</td>
+          <td>Contact them to dicuss shipment requirements</td>
+          <td>2020-06-01</td>
+          <td>Activity Signup</td>
+          <td>Super User</td>
+          <td>2015-04-01 00:04:42</td>
+          <td class="text-small"><a href="http://local.litecrm.com/opportunity/1">View</a>&nbsp;&nbsp;&nbsp;<a href="http://local.litecrm.com/opportunity/1/edit">Edit</a></td>
+        </tr>
+                  </tbody></table>
+  </div>
+</div>
+<br>
+<br>
+<a name="accountActivityRelatedList"></a>
+<div class="container">
+  <div class="row relatedListStart">
+    <div>Activity List</div><a href="http://local.litecrm.com/activity/create?related_type=account&amp;related_id=1" class="btn btn-primary btn-xs">Add New Activity</a>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover table-condensed searchResults">
+      <tbody><tr class="ui-state-default">
+        <th>Subject</th>
+        <th>Type</th>
+        <th>Relates to</th>
+        <th>Priority</th>
+        <th colspan="2">Status</th>
+        <th>Due/End Date</th>
+        <th>Owner</th>
+        <th>Created Date/Time</th>
+        <th>Modified Date/Time</th>
+        <th>&nbsp;</th>
+      </tr>
+                        <tr class=" text-primary  text-danger  ">
+            <td>Call shipping department for 1st batch shipping arrangements</td>
+            <td>Call</td>
+            <td>Account</td>
+            <td>High</td>
+            <td>Not Started</td><td></td>
+            <td>2015-04-14</td>
+            <td>Super User</td>
+            <td>2015-04-01 12:51:43</td>
+            <td>2015-04-01 12:51:43</td>
+            <td class="text-small"><a href="http://local.litecrm.com/activity/1">View</a>&nbsp;&nbsp;&nbsp;<a href="http://local.litecrm.com/activity/1/edit">Edit</a></td>
+          </tr>
+                  <tr class="">
+            <td>Emailed Josh for shipment requirements</td>
+            <td>Email</td>
+            <td>Account</td>
+            <td>Low</td>
+            <td>Completed</td><td><span class="glyphicon glyphicon-ok"></span></td>
+            <td>0000-00-00</td>
+            <td>Super User</td>
+            <td>2015-04-01 12:58:26</td>
+            <td>2015-04-01 12:58:26</td>
+            <td class="text-small"><a href="http://local.litecrm.com/activity/2">View</a>&nbsp;&nbsp;&nbsp;<a href="http://local.litecrm.com/activity/2/edit">Edit</a></td>
+          </tr>
+                  </tbody></table>
+  </div>
+</div>
+
+
+
+</body></html>
