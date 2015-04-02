@@ -31,6 +31,15 @@ function updateAccountParentWindow(pId, pName)
   window.close();
 }
 
+function showHideBlock(pId, pShowHide)
+{
+  if (pShowHide)
+    $('#'+pId).show(250);
+  else
+    $('#'+pId).hide(250)
+}
+
+
 $(function()
     {
       $("#dateFrom").datepicker({ dateFormat: "yy-mm-dd", changeMonth: true, changeYear: true});
@@ -63,6 +72,7 @@ $(function()
 
       if (document.getElementById("description"))
         expandTextarea(document.getElementById("description"));
+
     });
 
 </script>

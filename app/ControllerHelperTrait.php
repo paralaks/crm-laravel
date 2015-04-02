@@ -39,6 +39,8 @@ trait ControllerHelperTrait
             if ($this->record->trashed())
               return redirect($routeName)->with('pageWarning', 'You tried to access a '.$routeName.' which was deleted on ' . str_ireplace(' ', ' at ', $this->record->deleted_at));
 
+            if ($routeName=='lead' && $this->record->converted_at)
+              return redirect($routeName)->with('pageWarning', 'You tried to access a '.$routeName.' which was converted on ' . str_ireplace(' ', ' at ', $this->record->converted_at));
 
             $user=User::find(Auth::User()->id);
             $history= empty($user->recent_items) ? [] :  unserialize($user->recent_items);
@@ -82,7 +84,7 @@ trait ControllerHelperTrait
 
       $dbItem=call_user_func(array('\App\\'.ucfirst($routeName), 'withTrashed'))->find($id);
 
-      if ($dbItem==null || $dbItem->trashed())
+      if ($dbItem==null || $dbItem->trashed() || ($routeName=='lead' && $dbItem->converted_at))
         continue;
 
       switch($routeName)
@@ -176,7 +178,11 @@ trait ControllerHelperTrait
         $path='/'.substr($pTable,0,strlen($pTable)-1);
     }
 
-    $recordList=$recordList->whereNull('deleted_at')->simplePaginate(30);
+    if ($pTable=='leads')
+      $recordList=$recordList->whereNull('deleted_at')->whereNull('converted_at')->simplePaginate(30);
+    else
+      $recordList=$recordList->whereNull('deleted_at')->simplePaginate(30);
+
     $recordList->setPath($path);
     $recordListPagination=$recordList->appends($appendList)->render();
 
@@ -201,11 +207,32 @@ trait ControllerHelperTrait
   }
 
 
-  function getActivityList()
+  function relatedActivityList()
   {
     $activityList=$this->record->activities()->where('status_id', '!=', 4)->get();
     $activityList=$activityList->merge($this->record->activities()->where('status_id', '=', 4)->get());
 
     return $activityList;
+  }
+
+
+  function accountSearchResult($pName, $pLimit=25)
+  {
+    if (empty($pName))
+      return [[], false];
+
+    $pLimit=intVal($pLimit);
+    $pLimit++;
+
+    $accountList=DB::select('select id, name from accounts where name like ? limit '.$pLimit, ['%'.$pName.'%']);
+
+    $tooManyResults=false;
+    if (count($accountList) == $pLimit)
+    {
+      $tooManyResults=true;
+      unset($accountList[$pLimit-1]);
+    }
+
+    return [$accountList, $tooManyResults];
   }
 }

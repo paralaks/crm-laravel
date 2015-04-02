@@ -4,8 +4,6 @@
 
 <h3 class="pageTitle">Select Account</h3>
 
-
-
 <div class="container">
   <form id="editAccountForm" method="post" action="/account/searchChangeAccount" accept-charset="UTF-8" role="form" class="form-horizontal">
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -35,7 +33,6 @@
     </table>
   </div>
   @endif
-
 </div>
 
 @endsection

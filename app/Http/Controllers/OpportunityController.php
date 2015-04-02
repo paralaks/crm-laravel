@@ -91,7 +91,7 @@ class OpportunityController extends Controller
 
   public function show()
   {
-    $activityList=$this->getActivityList();
+    $activityList=$this->relatedActivityList();
 
     return View('opportunity/opportunity-view', ['record'=>$this->record, 'activityList'=>$activityList, 'editPath'=>'opportunity']);
   }

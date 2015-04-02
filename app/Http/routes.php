@@ -19,8 +19,8 @@ Route::any('/', 'HomeController@index');
 Route::any('home', 'HomeController@index');
 
 Route::resource('lead', 'LeadController');
-Route::get('lead/{id}/editConvert', 'LeadController@editConvert');
-Route::post('lead/{id}/convert', 'LeadController@convert');
+Route::get('lead/{id}/showConvert', 'LeadController@showConvert');
+Route::post('lead/{id}/showConvert', 'LeadController@showConvert');
 Route::get('lead/{id}/editOwner', 'LeadController@editOwner');
 Route::patch('lead/{id}/saveOwner', 'LeadController@saveOwner');
 

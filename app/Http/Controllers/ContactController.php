@@ -90,7 +90,7 @@ class ContactController extends Controller
 
   public function show()
   {
-    $activityList=$this->getActivityList();
+    $activityList=$this->relatedActivityList();
 
     return View('contact/contact-view', ['record'=>$this->record, 'activityList'=>$activityList, 'editPath'=>'contact']);
   }

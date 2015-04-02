@@ -174,7 +174,7 @@
         <div class="col-xs-12 text-center">
           <a href="/lead/{{ $record->id }}/edit" class="btn btn-primary">Edit</a>
           <input type="button" value="Delete" class="btn btn-primary" onClick="if (confirm('Are you sure you want to delete this record?')) document.getElementById('deleteLeadForm').submit()">
-          <a href="/lead/{{ $record->id }}/editConvert" class="btn btn-primary">Convert</a>
+          <a href="/lead/{{ $record->id }}/showConvert" class="btn btn-primary">Convert</a>
         </div>
       </div>
     </form>

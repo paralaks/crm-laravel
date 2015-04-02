@@ -54,6 +54,7 @@ class CreateContactsTable extends Migration
       $table->integer('salutation_id')->unsigned()->nullable();
       $table->integer('lead_source_id')->unsigned()->nullable();
       $table->integer('type_id')->unsigned()->nullable();
+      $table->integer('converted_lead_id')->unsigned()->nullable();
 
       $table->integer('account_id')->unsigned()->nullable();
       $table->integer('owner_id')->unsigned()->nullable();
