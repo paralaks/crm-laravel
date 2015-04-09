@@ -1,5 +1,3 @@
-<br>
-<br>
 <a name="accountOpportunityRelatedList"></a>
 <div class="container">
   <div class="row relatedListStart">

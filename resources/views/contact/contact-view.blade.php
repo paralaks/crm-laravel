@@ -186,6 +186,10 @@
   </div>
 </div>
 
+<br>
+<br>
+
+
 
 @include('activity/activity-related-list')
 

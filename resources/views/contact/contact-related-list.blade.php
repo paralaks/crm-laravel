@@ -1,5 +1,3 @@
-<br>
-<br>
 <a name="accountContactRelatedList"></a>
 <div class="container">
   <div class="row relatedListStart">
