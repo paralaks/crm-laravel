@@ -126,10 +126,28 @@
   <div class="row">
     <div class="col-sm-6">
       <div class="row">
+        <label for="birthdate" class="text-right col-xs-4">&nbsp;Birth date:</label>
+        <div class="col-xs-8">{{ $record->birthdate }}</div>
+      </div>
+    </div>
+
+    <div class="col-sm-6">
+      <div class="row">
+        <label for="interests" class="text-right col-xs-4">&nbsp;Interests:</label>
+        <div class="col-xs-8">{{ $record->interests }}</div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="row">
         <label for="lead_source_id" class="text-right col-xs-4">&nbsp;Lead Source:</label>
         <div class="col-xs-8">{{ \App\AppHelper::optionValueFromDB('lkp_lead_source', $record->lead_source_id) }}</div>
       </div>
     </div>
+
   </div>
 
 

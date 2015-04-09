@@ -42,12 +42,12 @@ function showHideBlock(pId, pShowHide)
 
 $(function()
     {
-      $("#dateFrom").datepicker({ dateFormat: "yy-mm-dd", changeMonth: true, changeYear: true});
-      $("#dateTo").datepicker({ dateFormat: "yy-mm-dd", changeMonth: true, changeYear: true});
-      $("#start_date").datepicker({ dateFormat: "yy-mm-dd", changeMonth: true, changeYear: true});
-      $("#end_date").datepicker({ dateFormat: "yy-mm-dd", changeMonth: true, changeYear: true});
-      $("#birthdate").datepicker({ dateFormat: "yy-mm-dd", changeMonth: true, changeYear: true});
-      $("#close_date").datepicker({ dateFormat: "yy-mm-dd", changeMonth: true, changeYear: true});
+      $("#dateFrom").datepicker({ dateFormat: "yy-mm-dd", changeMonth: true, changeYear: true, yearRange: '-110:+10'});
+      $("#dateTo").datepicker({ dateFormat: "yy-mm-dd", changeMonth: true, changeYear: true, yearRange: '-110:+10'});
+      $("#start_date").datepicker({ dateFormat: "yy-mm-dd", changeMonth: true, changeYear: true, yearRange: '-110:+10'});
+      $("#end_date").datepicker({ dateFormat: "yy-mm-dd", changeMonth: true, changeYear: true, yearRange: '-110:+10'});
+      $("#birthdate").datepicker({ dateFormat: "yy-mm-dd", changeMonth: true, changeYear: true, yearRange: '-110:+10'});
+      $("#close_date").datepicker({ dateFormat: "yy-mm-dd", changeMonth: true, changeYear: true, yearRange: '-110:+10'});
 
       $("#remind_at").datetimepicker({ 	formatTime:"H:i", formatDate:"y-m-d", defaultDate:"<?php echo date("Y-m-d"); ?>", defaultTime:"10:00", timepickerScrollbar:false});
 

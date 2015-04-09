@@ -96,6 +96,19 @@
 
 <div class="form-group">
   <div class="col-sm-6">
+    <label for="birthdate" class="control-label ui-state-default text-nowrap col-xs-4">Birth date:</label>
+    <div class="col-xs-8"><input type="text" id="birthdate" name="birthdate" class="form-control" value="{{ $record->birthdate }}"></div>
+  </div>
+
+  <div class="col-sm-6">
+    <label for="interests" class="control-label ui-state-default text-nowrap col-xs-4">Interests:</label>
+    <div class="col-xs-8"><input type="text" id="interests" name="interests" class="form-control" value="{{ $record->interests }}"></select></div>
+  </div>
+</div>
+
+
+<div class="form-group">
+  <div class="col-sm-6">
     <label for="lead_source_id" class="control-label ui-state-default text-nowrap col-xs-4">Lead Source:</label>
     <div class="col-xs-8"><select id="lead_source_id" name="lead_source_id" class="form-control">{!! \App\AppHelper::optionListFromDB('lkp_lead_source', $record->lead_source_id) !!}</select></div>
   </div>

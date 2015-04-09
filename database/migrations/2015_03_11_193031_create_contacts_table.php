@@ -22,6 +22,8 @@ class CreateContactsTable extends Migration
       $table->string('last_name');
       $table->string('department')->nullable();
       $table->text('description')->nullable();
+      $table->date('birthdate')->nullable();
+      $table->string('interests')->nullable();
 
       $table->string('phone')->nullable();
       $table->string('mobile_phone')->nullable();
