@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Activity;
+use App\AppHelper;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -40,32 +41,23 @@ class ActivityController extends Controller
 
     $this->loadFromDB();
 
-    $this->relatedObj=null;
     $this->relates_to='';
-    $this->related_type=strtolower(Request::input('related_type'));
-    $this->related_id=Request::input('related_id');
+    $this->related_type=strtolower(Request::input('related_type', ''));
+    $this->related_id=Request::input('related_id', '');
 
-    if (!empty($this->related_id))
+    if ($this->related_id)
+    {
       switch($this->related_type)
       {
-        case 'lead': $this->relatedObj=DB::select('select concat(first_name, " ", last_name) as name from leads where id = ? limit 1', [$this->related_id]); break;
-        case 'contact': $this->relatedObj=DB::select('select concat(first_name, " ", last_name) as name from contacts where id = ? limit 1', [$this->related_id]); break;
-        case 'account': $this->relatedObj=DB::select('select name from accounts where id = ? limit 1', [$this->related_id]); break;
-        case 'opportunity': $this->relatedObj=DB::select('select name from opportunities where id = ? limit 1', [$this->related_id]); break;
-        default:
+        case 'lead': $this->relates_to=AppHelper::valueFromDB('leads', $this->related_id); break;
+        case 'contact': $this->relates_to=AppHelper::valueFromDB('contacts', $this->related_id);  break;
+        case 'account': $this->relates_to=AppHelper::valueFromDB('accounts', $this->related_id); break;
+        case 'opportunity': $this->relates_to=AppHelper::valueFromDB('opportunities', $this->related_id);  break;
+        default: $this->relates_to='';
       }
 
-    if (count($this->relatedObj))
-    {
-      $this->relatedObj=$this->relatedObj[0];
-
-      $this->relates_to=ucfirst($this->related_type).' - '.$this->relatedObj->name;
-    }
-    else
-    {
-      $this->related_type='';
-      $this->relates_to='';
-      $this->related_id='';
+      if ($this->relates_to)
+        $this->relates_to=ucfirst($this->related_type).' - '.$this->relates_to;
     }
   }
 

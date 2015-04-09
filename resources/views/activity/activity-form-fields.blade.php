@@ -45,12 +45,11 @@
 
   <div class="col-sm-6">
     <label for="account_id" class="control-label ui-state-default text-nowrap col-xs-4">Relates to:</label>
-    <div class="col-xs-6">
-      <div id="relates_to" style="margin-top:5px">{{ $relates_to }}</div>
+    <div class="col-xs-8">
+      <div id="relates_to" style="margin-top:5px"><strong>{{ $relates_to }}</strong></div>
       <input type="hidden" id="related_type" name="related_type" class="form-control" value="{{ $record->related_type }}">
       <input type="hidden" id="related_id" name="related_id" class="form-control" value="{{ $record->related_id }}">
     </div>
-    @if ($record->id===null) {!! '<div class="col-xs-2" style="margin-top:4px"> [<a href="javascript:void(0)" onclick="showActivityChangeRelatedWindow()">Change</a>] </div>' !!}@endif
   </div>
 </div>
 

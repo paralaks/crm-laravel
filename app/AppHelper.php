@@ -113,7 +113,8 @@ class AppHelper
     switch($pTable)
     {
       case 'users':
-      case 'accounts' : $column='name';
+      case 'accounts':
+      case 'opportunities' : $column='name';
       break;
 
       case 'contacts' : $column=' concat(first_name, " ", last_name)';
