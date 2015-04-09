@@ -51,7 +51,7 @@ class OpportunityController extends Controller
     list($recordList, $recordListPagination)=$this->indexPageSearch('opportunities', 'id, name, close_date, probability, next_step,
 (select value from lkp_opportunity_stage where id=stage_id) as stage,
 (select value from lkp_lead_source where id=lead_source_id) as lead_source,
-(select name from accounts where id=account_id) as account,
+(select concat(first_name, " ", last_name) as name from contacts where id=contact_id) as contact,
 (select name from users where id=owner_id) as owner, created_at');
 
     return View('opportunity/opportunity-index', ['recordList'=>$recordList, 'recentViews'=>$recentViews, 'recordListPagination'=>$recordListPagination]);
@@ -61,7 +61,7 @@ class OpportunityController extends Controller
   public function create()
   {
     $this->record=new Opportunity();
-    $this->record->account_id=Request::input('account_id');
+    $this->record->contact_id=Request::input('contact_id');
     $this->record->owner_id=Auth::User()->id;
 
     return View('opportunity/opportunity-new', ['record'=>$this->record]);

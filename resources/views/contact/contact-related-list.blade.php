@@ -1,4 +1,4 @@
-<a name="accountContactRelatedList"></a>
+<a name="relatedListContacts"></a>
 <div class="container">
   <div class="row relatedListStart">
     <div>Contacts</div><a href="/contact/create?account_id={{ $record->id }}" class="btn btn-primary btn-xs">Add New Contact</a>

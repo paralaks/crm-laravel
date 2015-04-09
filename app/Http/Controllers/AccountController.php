@@ -84,30 +84,36 @@ class AccountController extends Controller
 
   public function show()
   {
-    $contactList=$this->record->contacts;
-    $opportunityList=$this->record->opportunities;
-
+    // activities in account
     $activityList=$this->record->activities()->where('status_id', '!=', 4)->get();
     $activityListCompleted=$this->record->activities()->where('status_id', '=', 4)->get();
+
+    // contacts
+    $contactList=$this->record->contacts;
 
 
     if (count($this->record->contacts))
       foreach($this->record->contacts as $contact)
       {
+        // activities in account contacts
         $activityList=$activityList->merge($contact->activities()->where('status_id', '!=', 4)->get());
         $activityListCompleted=$activityListCompleted->merge($contact->activities()->where('status_id', '=', 4)->get());
-      }
 
-    if (count($this->record->opportunities))
-      foreach($this->record->opportunities as $opportunity)
-      {
-        $activityList=$activityList->merge($opportunity->activities()->where('status_id', '!=', 4)->get());
-        $activityListCompleted=$activityListCompleted->merge($opportunity->activities()->where('status_id', '=', 4)->get());
+        // contact opportunities
+        $opportunityList=$contact->opportunities;
+        //activities in contact opportunities
+        if (count($opportunityList))
+          foreach($opportunityList as $opportunity)
+          {
+            $activityList=$activityList->merge($opportunity->activities()->where('status_id', '!=', 4)->get());
+            $activityListCompleted=$activityListCompleted->merge($opportunity->activities()->where('status_id', '=', 4)->get());
+          }
+
       }
 
     $activityList=$activityList->merge($activityListCompleted);
 
-    return View('account/account-view', ['record'=>$this->record, 'activityList'=>$activityList, 'editPath'=>'account', 'contactList'=>$contactList, 'opportunityList'=>$opportunityList]);
+    return View('account/account-view', ['record'=>$this->record, 'activityList'=>$activityList, 'editPath'=>'account', 'contactList'=>$contactList]);
   }
 
 

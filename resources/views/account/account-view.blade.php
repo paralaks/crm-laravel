@@ -5,9 +5,8 @@
 <h3 class="pageTitle">Account Details</h3>
 
 <div class="container relatedListLinks">
-  <a href="#accountContactRelatedList">Contacts</a>
-  <a href="#accountOpportunityRelatedList">Opportunities</a>
-  <a href="#accountActivityRelatedList">Activities</a>
+  <a href="#relatedListContacts">Contacts</a>
+  <a href="#relatedListActivities">Activities</a>
 </div>
 
 <div class="container lightBorder rowHighlight">
@@ -153,8 +152,6 @@
 
 
 @include('contact/contact-related-list')
-
-@include('opportunity/opportunity-related-list')
 
 @include('activity/activity-related-list')
 

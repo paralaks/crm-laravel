@@ -18,6 +18,11 @@ class Contact extends Model
     return $this->morphMany('App\Activity', 'related');
   }
 
+  public function opportunities()
+  {
+    return $this->hasMany('App\Opportunity');
+  }
+
   public function account()
   {
     return $this->belongsTo('App\Account');

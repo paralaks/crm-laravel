@@ -24,11 +24,6 @@ class Account extends Model
     return $this->hasMany('App\Contact');
   }
 
-  public function opportunities()
-  {
-    return $this->hasMany('App\Opportunity');
-  }
-
   public function owner()
   {
     return $this->belongsTo('App\User');

@@ -4,7 +4,10 @@
 
 <h3 class="pageTitle">Contact Details</h3>
 
-
+<div class="container relatedListLinks">
+  <a href="#relatedListActivities">Activities</a>
+  <a href="#relatedListOpportunities">Opportunities</a>
+</div>
 
 <div class="container lightBorder rowHighlight">
 
@@ -208,8 +211,9 @@
 <br>
 
 
-
 @include('activity/activity-related-list')
+
+@include('opportunity/opportunity-related-list')
 
 
 @endsection

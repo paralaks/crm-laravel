@@ -1,7 +1,7 @@
-<a name="accountOpportunityRelatedList"></a>
+<a name="relatedListOpportunities"></a>
 <div class="container">
   <div class="row relatedListStart">
-    <div>Opportunities</div><a href="/opportunity/create?account_id={{ $record->id }}" class="btn btn-primary btn-xs">Add New Opportunity</a>
+    <div>Opportunities</div><a href="/opportunity/create?contact_id={{ $record->id }}" class="btn btn-primary btn-xs">Add New Opportunity</a>
   </div>
 
 @if ($opportunityList!==null)

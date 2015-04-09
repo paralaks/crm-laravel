@@ -1,4 +1,4 @@
-<a name="accountActivityRelatedList"></a>
+<a name="relatedListActivities"></a>
 <div class="container">
   <div class="row relatedListStart">
     <div>Activity List</div><a href="/activity/create?related_type={{ $editPath }}&related_id={{ $record->id }}" class="btn btn-primary btn-xs">Add New Activity</a>

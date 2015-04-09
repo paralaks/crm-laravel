@@ -233,7 +233,6 @@ class LeadController extends Controller
         unset($fields['num_of_employees']);
         unset($fields['website']);
         unset($fields['annual_revenue']);
-        unset($fields['birthdate']);
         unset($fields['status_id']);
         unset($fields['industry_id']);
         unset($fields['rating_id']);

@@ -90,9 +90,21 @@ class ContactController extends Controller
 
   public function show()
   {
-    $activityList=$this->relatedActivityList();
+    $activityList=$this->record->activities()->where('status_id', '!=', 4)->get();
+    $activityListCompleted=$this->record->activities()->where('status_id', '=', 4)->get();
 
-    return View('contact/contact-view', ['record'=>$this->record, 'activityList'=>$activityList, 'editPath'=>'contact']);
+    $opportunityList=$this->record->opportunities;
+
+    if (count($opportunityList))
+      foreach($opportunityList as $opportunity)
+      {
+        $activityList=$activityList->merge($opportunity->activities()->where('status_id', '!=', 4)->get());
+        $activityListCompleted=$activityListCompleted->merge($opportunity->activities()->where('status_id', '=', 4)->get());
+      }
+
+    $activityList=$activityList->merge($activityListCompleted);
+
+    return View('contact/contact-view', ['record'=>$this->record, 'activityList'=>$activityList, 'editPath'=>'contact', 'opportunityList'=>$opportunityList]);
   }
 
 

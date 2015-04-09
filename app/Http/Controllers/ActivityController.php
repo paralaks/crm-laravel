@@ -49,7 +49,7 @@ class ActivityController extends Controller
       switch($this->related_type)
       {
         case 'lead': $this->relatedObj=DB::select('select concat(first_name, " ", last_name) as name from leads where id = ? limit 1', [$this->related_id]); break;
-        case 'contact': $this->relatedObj=DB::select('select concat(first_name, " ", last_name) as name from leads where id = ? limit 1', [$this->related_id]); break;
+        case 'contact': $this->relatedObj=DB::select('select concat(first_name, " ", last_name) as name from contacts where id = ? limit 1', [$this->related_id]); break;
         case 'account': $this->relatedObj=DB::select('select name from accounts where id = ? limit 1', [$this->related_id]); break;
         case 'opportunity': $this->relatedObj=DB::select('select name from opportunities where id = ? limit 1', [$this->related_id]); break;
         default:

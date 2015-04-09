@@ -108,7 +108,20 @@ class AppHelper
     if (empty($pValue))
       return '';
 
-    $column= $pTable=='users' || $pTable=='accounts' ? 'name' : 'value';
+    $column='';
+
+    switch($pTable)
+    {
+      case 'users':
+      case 'accounts' : $column='name';
+      break;
+
+      case 'contacts' : $column=' concat(first_name, " ", last_name)';
+      break;
+
+      default: $column='value';
+    }
+
     $rows=DB::select("select id, $column as value from $pTable where id= ? limit 1", [$pValue]);
 
     return count($rows) ? $rows[0]->value : '';

@@ -5,12 +5,11 @@
   </div>
 
   <div class="col-sm-6">
-    <label for="account_id" class="control-label ui-state-default text-nowrap col-xs-4">Account:</label>
-    <div class="col-xs-6">
-      <div id="account_name" style="margin-top:5px">{{ \App\AppHelper::valueFromDB('accounts', $record->account_id) }}</div>
-      <input type="hidden" id="account_id" name="account_id" class="form-control" value="{{ $record->account_id }}">
+    <label for="account_id" class="control-label ui-state-default text-nowrap col-xs-4">Contact:</label>
+    <div class="col-xs-8">
+      <div id="contact_name" style="margin-top:5px"><strong>{{ \App\AppHelper::valueFromDB('contacts', $record->contact_id) }}</strong></div>
+      <input type="hidden" id="contact_id" name="contact_id" class="form-control" value="{{ $record->contact_id }}">
     </div>
-    <div class="col-xs-2" style="margin-top:4px"> [<a href="javascript:void(0)" onclick="showChangeAccountWindow()">Change</a>]</div>
   </div>
 </div>
 
