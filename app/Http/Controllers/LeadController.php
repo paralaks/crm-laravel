@@ -266,7 +266,7 @@ class LeadController extends Controller
       else
       {
         DB::commit();
-        return redirect('/contact/' . $contact->id)->with('pageSuccess', 'Contact converted successfully.');
+        return redirect('/contact/' . $contact->id)->with('pageSuccess', 'Lead converted successfully. Contact details are below.');
       }
     }
 
