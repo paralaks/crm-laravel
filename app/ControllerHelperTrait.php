@@ -136,8 +136,13 @@ trait ControllerHelperTrait
         }
       }
 
-      $from=empty(Request::input('dateFrom')) ? null : Request::input('dateFrom');
-      $to=empty(Request::input('dateTo')) ? null : Request::input('dateTo');
+      $from=Request::input('dateFrom');
+      $to=Request::input('dateTo');
+
+      if (empty($from))
+        $from=null;
+      if (empty($to))
+        $to=null;
 
       if (in_array(Request::input('intervalDate'), ['createdThisWeek','modifiedThisWeek']))
       {

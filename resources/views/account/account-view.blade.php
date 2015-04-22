@@ -14,32 +14,15 @@
   <div class="row">
     <div class="col-sm-6">
       <div class="row">
-        <label for="name" class="text-right col-xs-4">&nbsp;Name:</label>
-        <div class="col-xs-8">{{ $record->name }}</div>
+        <label for="name" class="text-right col-xs-5">&nbsp;Name:</label>
+        <div class="col-xs-7">{{ $record->name }}</div>
       </div>
     </div>
 
     <div class="col-sm-6">
       <div class="row">
-        <label for="number" class="text-right col-xs-4">&nbsp;Account Number:</label>
-        <div class="col-xs-8">{{ $record->number }}</div>
-      </div>
-    </div>
-  </div>
-
-
-  <div class="row">
-    <div class="col-sm-6">
-      <div class="row">
-        <label for="type_id" class="text-right col-xs-4">&nbsp;Account Type:</label>
-        <div class="col-xs-8">{{ \App\AppHelper::optionValueFromDB('lkp_account_type', $record->type_id) }}</div>
-      </div>
-    </div>
-
-    <div class="col-sm-6">
-      <div class="row">
-        <label for="rating_id" class="text-right col-xs-4">&nbsp;Rating:</label>
-        <div class="col-xs-8">{{ \App\AppHelper::optionValueFromDB('lkp_rating', $record->rating_id) }}</div>
+        <label for="number" class="text-right col-xs-5">&nbsp;Account Number:</label>
+        <div class="col-xs-7">{{ $record->number }}</div>
       </div>
     </div>
   </div>
@@ -48,32 +31,15 @@
   <div class="row">
     <div class="col-sm-6">
       <div class="row">
-        <label for="industry_id" class="text-right col-xs-4">&nbsp;Phone:</label>
-        <div class="col-xs-8">{{ $record->phone }}</div>
+        <label for="type_id" class="text-right col-xs-5">&nbsp;Account Type:</label>
+        <div class="col-xs-7">{{ \App\AppHelper::optionValueFromDB('lkp_account_type', $record->type_id) }}</div>
       </div>
     </div>
 
     <div class="col-sm-6">
       <div class="row">
-        <label for="industry_id" class="text-right col-xs-4">&nbsp;Fax:</label>
-        <div class="col-xs-8">{{ $record->fax }}</div>
-      </div>
-    </div>
-  </div>
-
-
-  <div class="row">
-    <div class="col-sm-6">
-      <div class="row">
-        <label for="industry_id" class="text-right col-xs-4">&nbsp;Annual Rev.:</label>
-        <div class="col-xs-8">{{ $record->annual_revenue }}</div>
-      </div>
-    </div>
-
-    <div class="col-sm-6">
-      <div class="row">
-        <label for="industry_id" class="text-right col-xs-4">&nbsp;Num. of Employees:</label>
-        <div class="col-xs-8">{{ $record->num_of_employees }}</div>
+        <label for="rating_id" class="text-right col-xs-5">&nbsp;Rating:</label>
+        <div class="col-xs-7">{{ \App\AppHelper::optionValueFromDB('lkp_rating', $record->rating_id) }}</div>
       </div>
     </div>
   </div>
@@ -82,32 +48,15 @@
   <div class="row">
     <div class="col-sm-6">
       <div class="row">
-        <label for="industry" class="text-right col-xs-4">&nbsp;Industry:</label>
-        <div class="col-xs-8">{{ \App\AppHelper::optionValueFromDB('lkp_industry', $record->industry_id) }}</div>
+        <label for="industry_id" class="text-right col-xs-5">&nbsp;Phone:</label>
+        <div class="col-xs-7">{{ $record->phone }}</div>
       </div>
     </div>
 
     <div class="col-sm-6">
       <div class="row">
-        <label for="ownership" class="text-right col-xs-4">&nbsp;Ownership:</label>
-        <div class="col-xs-8">{{ \App\AppHelper::optionValueFromDB('lkp_account_ownership', $record->ownership_id) }}</div>
-      </div>
-    </div>
-  </div>
-
-
-  <div class="row">
-    <div class="col-sm-6">
-      <div class="row">
-        <label for="industry_id" class="text-right col-xs-4">&nbsp;Website:</label>
-        <div class="col-xs-8">{{ $record->website }}</div>
-      </div>
-    </div>
-
-    <div class="col-sm-6">
-      <div class="row">
-        <label for="lead_source_id" class="text-right col-xs-4">&nbsp;Lead Source:</label>
-        <div class="col-xs-8">{{ \App\AppHelper::optionValueFromDB('lkp_lead_source', $record->lead_source_id) }}</div>
+        <label for="industry_id" class="text-right col-xs-5">&nbsp;Fax:</label>
+        <div class="col-xs-7">{{ $record->fax }}</div>
       </div>
     </div>
   </div>
@@ -116,15 +65,66 @@
   <div class="row">
     <div class="col-sm-6">
       <div class="row">
-        <label for="address" class="text-right col-xs-4">&nbsp;Billing Address:</label>
-        <div class="col-xs-8">{{ $record->street }} <br> {{ $record->city }}, {{ $record->state }}, {{ $record->zip }} <br> {{ \App\AppHelper::optionValueCountry($record->country) }}</div>
+        <label for="industry_id" class="text-right col-xs-5">&nbsp;Annual Revenue:</label>
+        <div class="col-xs-7">{{ $record->annual_revenue }}</div>
       </div>
     </div>
 
     <div class="col-sm-6">
       <div class="row">
-        <label for="address_other" class="text-right col-xs-4">&nbsp;Shipping Address:</label>
-        <div class="col-xs-8">{{ $record->street_other }} <br> {{ $record->city_other }}, {{ $record->state_other }}, {{ $record->zip_other }} <br> {{ \App\AppHelper::optionValueCountry($record->country_other) }}</div>
+        <label for="industry_id" class="text-right col-xs-5">&nbsp;Num. of Employees:</label>
+        <div class="col-xs-7">{{ $record->num_of_employees }}</div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="row">
+        <label for="industry" class="text-right col-xs-5">&nbsp;Industry:</label>
+        <div class="col-xs-7">{{ \App\AppHelper::optionValueFromDB('lkp_industry', $record->industry_id) }}</div>
+      </div>
+    </div>
+
+    <div class="col-sm-6">
+      <div class="row">
+        <label for="ownership" class="text-right col-xs-5">&nbsp;Ownership:</label>
+        <div class="col-xs-7">{{ \App\AppHelper::optionValueFromDB('lkp_account_ownership', $record->ownership_id) }}</div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="row">
+        <label for="industry_id" class="text-right col-xs-5">&nbsp;Website:</label>
+        <div class="col-xs-7">{{ $record->website }}</div>
+      </div>
+    </div>
+
+    <div class="col-sm-6">
+      <div class="row">
+        <label for="lead_source_id" class="text-right col-xs-5">&nbsp;Lead Source:</label>
+        <div class="col-xs-7">{{ \App\AppHelper::optionValueFromDB('lkp_lead_source', $record->lead_source_id) }}</div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="row">
+        <label for="address" class="text-right col-xs-5">&nbsp;Billing Address:</label>
+        <div class="col-xs-7">{{ $record->street }} <br> {{ $record->city }}, {{ $record->state }}, {{ $record->zip }} <br> {{ \App\AppHelper::optionValueCountry($record->country) }}</div>
+      </div>
+    </div>
+
+    <div class="col-sm-6">
+      <div class="row">
+        <label for="address_other" class="text-right col-xs-5">&nbsp;Shipping Address:</label>
+        <div class="col-xs-7">{{ $record->street_other }} <br> {{ $record->city_other }}, {{ $record->state_other }}, {{ $record->zip_other }} <br> {{ \App\AppHelper::optionValueCountry($record->country_other) }}</div>
       </div>
     </div>
   </div>
