@@ -117,6 +117,7 @@ class AppHelper
       case 'opportunities' : $column='name';
       break;
 
+      case 'leads' :
       case 'contacts' : $column=' concat(first_name, " ", last_name)';
       break;
 
