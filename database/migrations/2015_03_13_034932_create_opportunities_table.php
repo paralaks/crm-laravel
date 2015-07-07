@@ -28,7 +28,7 @@ class CreateOpportunitiesTable extends Migration
       $table->integer('stage_id')->unsigned()->nullable();
       $table->integer('type_id')->unsigned()->nullable();
 
-      $table->integer('account_id')->unsigned()->nullable();
+      $table->integer('contact_id')->unsigned()->nullable();
       $table->integer('owner_id')->unsigned()->nullable();
       $table->integer('adder_id')->unsigned()->nullable();
       $table->integer('modifier_id')->unsigned()->nullable();
